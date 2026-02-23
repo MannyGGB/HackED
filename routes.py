@@ -21,3 +21,7 @@ db = database()
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/leaderboard')
+def leaderboard():
+    return render_template('leaderboardDisplay.html')
