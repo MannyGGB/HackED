@@ -51,7 +51,7 @@ def login():
     
     return render_template('adminLogin.html')
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 @admin_required
 def admin():
     return render_template('admin.html')
