@@ -24,5 +24,5 @@ def home():
 
 @app.route('/leaderboard', methods=['GET'])
 def leaderboard():
-    data = db.queryDB("SELECT Metrics.ovr, Business.Name FROM Metrics, Business WHERE Metrics.business_id = Business.business_id")
+    data = db.queryDB("SELECT Business.Name, Metrics.ovr FROM Metrics, Business WHERE Metrics.business_id = Business.business_id ORDER BY Metrics.ovr DESC")
     return render_template('leaderboardDisplay.html', data=data)
