@@ -19,7 +19,11 @@
                             border: 2px solid #2d6969;
                             border-radius: 10px;
                             transition: all 0.2s ease;">
-                    <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem;">{{ item[0] }}</span>
+                    <!-- Ranking number with # -->
+                    <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; width: 30px; text-align: center;">#{{ loop.index }}</span>
+                    <!-- Company name -->
+                    <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; flex: 1; margin-left: 10px;">{{ item[0] }}</span>
+                    <!-- Score -->
                     <span style="color: #2d6969; font-weight: 500; font-size: 1.05rem;">{{ item[1] }}</span>
                 </div>
                 {% endfor %}
