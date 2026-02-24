@@ -92,6 +92,7 @@ main{
     transform: translateY(-5px);
 }
 
+
 /* Sprite Logic: Assumes a 3-column grid of badges */
 .badge-icon {
     width: 100px; /* Width of one badge */
@@ -114,3 +115,15 @@ main{
 
 .winner-name { font-weight: bold; font-size: 1.1em; color: #333; margin: 10px 0 5px; }
 .winner-score { color: #27ae60; font-weight: 600; font-size: 0.9em; }
+
+/* Badge icon hover animation */
+.badge-icon:hover {
+    transform: rotate(-5deg) scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Score hover animation */
+.winner-score:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
