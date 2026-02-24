@@ -159,7 +159,7 @@ def admin_add_metrics():
         total = carbon + materials + chain + waste + water
         ovr = total / 5
 
-        time = datetime.today().strftime('%Y%m%d')
+        time = datetime.today().strftime('%Y%m%d%H%M')
 
         if business_id and carbon and materials and chain and waste and water and ovr and time:
             db.updateDB('INSERT INTO Metrics (business_id,carbon_intensity,sustainable_materials,supply_chain,wate,water_use,ovr,date) VALUES (?,?,?,?,?,?,?,?)', (business_id,carbon,materials,chain,waste,water,ovr,time))
