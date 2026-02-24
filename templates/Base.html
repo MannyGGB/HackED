@@ -34,6 +34,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
           </li>
+          {% if 'admin' in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li>
+          {% else %}
+          {% endif %}
         </ul>
       
         <!-- Search bar -->

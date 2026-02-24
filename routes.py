@@ -5,7 +5,7 @@ import hashlib
 from functools import wraps
 import os
 from dotenv import load_dotenv
-import datetime
+from datetime import datetime
 
 def admin_required(f):
     @wraps(f)
@@ -131,8 +131,9 @@ def admin_add_company():
 
 @app.route('/admin_edit_company', methods=['GET', 'POST'])
 @admin_required
-def admin_add_company():
+def admin_edit_company():
     if request.method == "POST":
+        business_id = request.form["biz"]
         name = request.form["name"]
         physical = request.form.get("phys")
         long = request.form["long"]
@@ -141,7 +142,7 @@ def admin_add_company():
         tick = 1 if physical else 0
 
         if name and long and lat:
-            db.updateDB('INSERT INTO Business (Name,is_physical,long,lat) VALUES (?,?,?,?)', (name,tick,long,lat))
+            db.updateDB('UPDATE Business SET Name = ?, is_physical = ?, long = ?, lat = ? WHERE business_id = ?',(name, tick, long, lat, business_id))
 
     return render_template('admin.html')
 
@@ -156,13 +157,19 @@ def admin_add_metrics():
         waste = request.form["ws"]
         water = request.form["wu"]
 
+        carbon = float(carbon)
+        materials = float(materials)
+        chain = float(chain)
+        waste = float(waste)
+        water = float(water)
+
         total = carbon + materials + chain + waste + water
         ovr = total / 5
 
         time = datetime.today().strftime('%Y%m%d%H%M')
 
         if business_id and carbon and materials and chain and waste and water and ovr and time:
-            db.updateDB('INSERT INTO Metrics (business_id,carbon_intensity,sustainable_materials,supply_chain,wate,water_use,ovr,date) VALUES (?,?,?,?,?,?,?,?)', (business_id,carbon,materials,chain,waste,water,ovr,time))
+            db.updateDB('INSERT INTO Metrics (business_id,carbon_intensity,sustainable_materials,supply_chain,waste,water_use,ovr,date) VALUES (?,?,?,?,?,?,?,?)', (business_id,carbon,materials,chain,waste,water,ovr,time))
 
     return render_template('admin.html')
 
