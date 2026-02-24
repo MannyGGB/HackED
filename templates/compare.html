@@ -24,6 +24,7 @@
 
     {% if b1 and b2 %}
     <div class="compare-container">
+        <!-- Business 1 Column -->
         <div class="biz-column result-column">
             <h2 style="text-align: center; border-bottom: 2px solid #2d6969; padding-bottom: 10px; color: #2d6969;">Results</h2>
             <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b1[2] >= b2[2] else '' }}">{{ b1[2] }}</span></div>
@@ -34,6 +35,7 @@
             <div class="stat-row"><strong>Overall Score: <span class="{{ 'green-bg' if b1[7] >= b2[7] else '' }}">{{ b1[7] }}</span></strong></div>
         </div>
 
+        <!-- Business 2 Column -->
         <div class="biz-column result-column">
             <h2 style="text-align: center; border-bottom: 2px solid #2d6969; padding-bottom: 10px; color: #2d6969;">Results</h2>
             <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b2[2] >= b1[2] else '' }}">{{ b2[2] }}</span></div>
@@ -52,49 +54,13 @@
     font-family: raleway; 
 }
 
-/* Default selection area - grey background */
+/* Layout for select and button */
 .compare-container { 
     display: flex; 
     justify-content: center; 
     gap: 20px; 
     margin-top: 20px; 
     flex-wrap: wrap;
-}
-
-.biz-column { 
-    width: 45%; 
-    border: 2px solid #2d6969; 
-    padding: 20px; 
-    border-radius: 10px; 
-    box-shadow: 2px 4px 12px rgba(0,0,0,0.1); 
-    background-color: #d6d6d6; /* light grey for default compare box */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.result-column {
-    background-color: #ffffff; /* results become white */
-}
-
-.biz-column:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-.green-bg { 
-    background-color: #d4edda; 
-    color: #155724; 
-    font-weight: bold; 
-    padding: 4px 8px; 
-    border-radius: 4px; 
-    display: inline-block; 
-}
-
-.stat-row { 
-    margin-bottom: 15px; 
-    padding: 8px; 
-    display: flex; 
-    justify-content: space-between; 
-    font-weight: 500;
 }
 
 select { 
@@ -117,7 +83,6 @@ select {
     font-size: 16px; 
     margin-top: 10px; 
 }
-
 .enters:hover { 
     background-color: #1f4f4f; 
 }
@@ -125,6 +90,52 @@ select {
 .header-controls { 
     text-align: center; 
     margin-bottom: 40px; 
+}
+
+/* Business Columns */
+.biz-column { 
+    width: 45%; 
+    border: 2px solid #2d6969; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.1); 
+    background-color: #d6d6d6; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-column { 
+    background-color: #ffffff; 
+}
+
+.biz-column:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Stat rows */
+.stat-row { 
+    margin-bottom: 15px; 
+    padding: 8px; 
+    display: flex; 
+    justify-content: space-between; 
+    font-weight: 500;
+}
+
+/* Make values consistent width and height */
+.stat-row span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px; /* adjust to your longest value */
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Green highlight */
+.green-bg { 
+    background-color: #d4edda; 
+    color: #155724; 
+    font-weight: bold; 
 }
 </style>
 {% endblock %}
