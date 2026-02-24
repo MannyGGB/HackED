@@ -9,18 +9,14 @@
             
             <div class="d-flex flex-column gap-3">
                 {% for item in data %}
-                <div class="d-flex justify-content-between align-items-center p-3 leaderboard-row"
-                     style="background-color: 
-                        {% if loop.index == 1 %}#FFD700
-                        {% elif loop.index == 2 %}#C0C0C0
-                        {% elif loop.index == 3 %}#CD7F32
-                        {% else %}#ffffff
-                        {% endif %};
-                            border: 2px solid #2d6969;
-                            border-radius: 10px;
-                            transition: all 0.2s ease;">
+                <div class="d-flex justify-content-between align-items-center p-3 leaderboard-row
+                    {% if loop.index == 1 %} top-gold
+                    {% elif loop.index == 2 %} top-silver
+                    {% elif loop.index == 3 %} top-bronze
+                    {% endif %}"
+                     style="border: 2px solid #2d6969; border-radius: 10px; transition: all 0.2s ease;">
                     <!-- Ranking number with # -->
-                    <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; width: 30px; text-align: center;">#{{ loop.index }}</span>
+                    <span class="rank-number" style="color: #2d6969; font-weight: 600; font-size: 1.1rem; width: 30px; text-align: center;">#{{ loop.index }}</span>
                     <!-- Company name -->
                     <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; flex: 1; margin-left: 10px;">{{ item[0] }}</span>
                     <!-- Score -->
@@ -34,9 +30,33 @@
 </div>
 
 <style>
+/* Hover shadow for all rows */
 .leaderboard-row:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Top 3 specific styles */
+.top-gold {
+    background-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+.top-silver {
+    background-color: #C0C0C0;
+    box-shadow: 0 0 15px rgba(192, 192, 192, 0.5);
+}
+.top-bronze {
+    background-color: #CD7F32;
+    box-shadow: 0 0 15px rgba(205, 127, 50, 0.5);
+}
+
+/* Animated ranking number */
+.rank-number {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+.leaderboard-row:hover .rank-number {
+    transform: scale(1.2) rotate(-5deg);
 }
 </style>
 
