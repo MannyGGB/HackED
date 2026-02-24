@@ -63,3 +63,54 @@ main{
   background-size: cover;
   height: 100vh;
 }
+
+/* Container and Card Styles */
+.winners-container {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.winners-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.winner-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    width: 220px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+}
+
+.winner-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Sprite Logic: Assumes a 3-column grid of badges */
+.badge-icon {
+    width: 100px; /* Width of one badge */
+    height: 100px; /* Height of one badge */
+    margin: 0 auto 15px;
+    background-image: url("/static/badges.jpg");
+    background-repeat: no-repeat;
+    background-size: 300px 200px; /* Total size of the image (3 cols x 2 rows) */
+}
+
+/* Row 1 Positions */
+.badge-overall      { background-position: 0px 0px; }
+.badge-carbon       { background-position: -100px 0px; }
+.badge-materials    { background-position: -200px 0px; }
+
+/* Row 2 Positions */
+.badge-supply_chain { background-position: 0px -100px; }
+.badge-waste        { background-position: -100px -100px; }
+.badge-water        { background-position: -200px -100px; }
+
+.winner-name { font-weight: bold; font-size: 1.1em; color: #333; margin: 10px 0 5px; }
+.winner-score { color: #27ae60; font-weight: 600; font-size: 0.9em; }

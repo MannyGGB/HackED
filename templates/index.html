@@ -1,25 +1,70 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="wrapper">
-  <div class="marquee">
-    <div class="marquee-content">
-    <p>  • Total Number of Views: 567  </p>
-    <p>  • Total Number of Stores: {{count}}  </p>
-    <p>  • Total Number of Views: 567  </p>
-    <p>  • Total Number of Stores: {{count}}  </p>
-    <p>  • Total Number of Views: 567  </p>
-    <p>  • Total Number of Stores: {{count}}  </p>
-    <p>  • Total Number of Views: 567  </p>
-    <p>  • Total Number of Stores: {{count}}  </p>
+
+<!-- Marquee Section -->
+<div class="wrapper mb-4">
+    <div class="marquee">
+        <div class="marquee-content d-flex gap-4">
+            <p>• Total Number of Views: 567</p>
+            <p>• Total Number of Stores: {{ count }}</p>
+            <p>• Total Number of Views: 567</p>
+            <p>• Total Number of Stores: {{ count }}</p>
+            <p>• Total Number of Views: 567</p>
+            <p>• Total Number of Stores: {{ count }}</p>
+            <p>• Total Number of Views: 567</p>
+            <p>• Total Number of Stores: {{ count }}</p>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Welcome Message Text -->
-<div class="container mt-4 text-center" style="max-width: 800px; margin: 0 auto;">
-    <p class="mb-2 raleway" style="color: #2d6969; font-size: 2.5rem;"><strong>Welcome to Fashion Footprint.</strong></p>
-    <p class="raleway" style="color: #2d6969;">We provide independent, data-driven rankings of fashion brands based on <b>measurable sustainability</b> standards — from ethical sourcing and environmental <b>impact to durability and long-term value</b>. Our <b>mission is simple</b>: to empower consumers to <b>shop more responsibly</b> and <b>invest</b> in clothing designed to last.</p>
-    <p class="raleway" style="color: #2d6969;"><b>Fashion Footprint</b> brings clarity, credibility, and accountability to sustainable fashion.</p>
+<!-- Welcome Section -->
+<div class="container text-center" style="max-width: 800px; margin: 0 auto;">
+    <p class="mb-2 raleway" style="color: #2d6969; font-size: 2.5rem; font-weight: 600;">Welcome to Fashion Footprint.</p>
+    <p class="raleway" style="color: #2d6969;">
+        We provide independent, data-driven rankings of fashion brands based on <b>measurable sustainability</b> standards — from ethical sourcing and environmental <b>impact to durability and long-term value</b>. 
+        Our <b>mission is simple</b>: to empower consumers to <b>shop more responsibly</b> and <b>invest</b> in clothing designed to last.
+    </p>
+    <p class="raleway" style="color: #2d6969;">
+        <b>Fashion Footprint</b> brings clarity, credibility, and accountability to sustainable fashion.
+    </p>
 </div>
+
+<div class="winners-container mt-5 text-center">
+    <h2 style="color: #2d6969; letter-spacing: 1px; font-weight: 600; margin-bottom: 25px;">Top Performers</h2>
+    <div class="winners-grid d-flex justify-content-center flex-wrap gap-2">
+        {% for category, data in winners.items() %}
+        <div class="winner-card shadow-sm" style="background-color: #e8e8e8; border: 2px solid #2d6969; border-radius: 10px; width: 140px; padding: 10px; transition: all 0.2s ease;">
+            <!-- Badge Icon -->
+            <div class="badge-icon badge-{{ category }}" style="margin-bottom: 8px;"></div>
+            
+            <!-- Category Name -->
+            <h4 style="text-transform: capitalize; color: #2d6969; margin-bottom: 6px; font-size: 0.9rem;">
+                {{ category|replace('_', ' ') }}
+            </h4>
+            
+            <!-- Winner Name -->
+            <p class="winner-name" style="color: #2d6969; font-weight: 600; font-size: 0.85rem; margin-bottom: 3px;">{{ data[0] }}</p>
+            
+            <!-- Winner Score -->
+            <p class="winner-score" style="color: #6FBF3F; font-weight: 500; font-size: 0.8rem;">Score: {{ data[1] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+/* Hover effect for winner cards */
+.winner-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Gap between winner cards */
+.winners-grid {
+    gap: 15px;
+}
+</style>
 
 {% endblock %}

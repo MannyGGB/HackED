@@ -19,11 +19,32 @@ db = database()
 
 @app.route('/', methods=['GET'])
 def home():
-    count = 0
-    data = db.queryDB("SELECT * From Business")
-    for i in data:
-        count = count + 1
-    return render_template('index.html', count=count)
+    # Count of businesses
+    count_data = db.queryDB("SELECT COUNT(*) FROM Business")
+    count = count_data[0][0] if count_data else 0
+
+    # Helper to get the top business for a specific column
+    def get_top_biz(column):
+        query = f"""
+            SELECT b.Name, m.{column} 
+            FROM Metrics m 
+            JOIN Business b ON m.business_id = b.business_id 
+            ORDER BY m.{column} DESC LIMIT 1
+        """
+        result = db.queryDB(query)
+        return result[0] if result else ("N/A", 0)
+
+    # Fetching winners for each category
+    winners = {
+        "overall": get_top_biz("ovr"),
+        "carbon": get_top_biz("carbon_intensity"),
+        "materials": get_top_biz("sustainable_materials"),
+        "supply_chain": get_top_biz("supply_chain"),
+        "waste": get_top_biz("waste"),
+        "water": get_top_biz("water_use")
+    }
+
+    return render_template('index.html', count=count, winners=winners)
 
 @app.route('/leaderboard', methods=['GET'])
 def leaderboard():

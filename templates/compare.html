@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="comparisons">
-    <h1 style="text-align: center; margin-top: 10px;">Business Comparison Tool</h1>
+    <h1 style="text-align: center; margin-top: 10px; color: #2d6969; font-weight: 700;">Business Comparison Tool</h1>
     
     <form method="POST" class="header-controls">
-        <div class="compare-container" style="margin-bottom: 20px;">
+        <div class="compare-container">
             <select name="biz1">
                 <option value="">Select Business 1</option>
                 {% for b in businesses %}
@@ -24,8 +24,8 @@
 
     {% if b1 and b2 %}
     <div class="compare-container">
-        <div class="biz-column">
-            <h2 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px;">Results</h2>
+        <div class="biz-column result-column">
+            <h2 style="text-align: center; border-bottom: 2px solid #2d6969; padding-bottom: 10px; color: #2d6969;">Results</h2>
             <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b1[2] >= b2[2] else '' }}">{{ b1[2] }}</span></div>
             <div class="stat-row">Sustainable Materials: <span class="{{ 'green-bg' if b1[3] >= b2[3] else '' }}">{{ b1[3] }}</span></div>
             <div class="stat-row">Supply Chain: <span class="{{ 'green-bg' if b1[4] >= b2[4] else '' }}">{{ b1[4] }}</span></div>
@@ -34,8 +34,8 @@
             <div class="stat-row"><strong>Overall Score: <span class="{{ 'green-bg' if b1[7] >= b2[7] else '' }}">{{ b1[7] }}</span></strong></div>
         </div>
 
-        <div class="biz-column">
-            <h2 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px;">Results</h2>
+        <div class="biz-column result-column">
+            <h2 style="text-align: center; border-bottom: 2px solid #2d6969; padding-bottom: 10px; color: #2d6969;">Results</h2>
             <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b2[2] >= b1[2] else '' }}">{{ b2[2] }}</span></div>
             <div class="stat-row">Sustainable Materials: <span class="{{ 'green-bg' if b2[3] >= b1[3] else '' }}">{{ b2[3] }}</span></div>
             <div class="stat-row">Supply Chain: <span class="{{ 'green-bg' if b2[4] >= b1[4] else '' }}">{{ b2[4] }}</span></div>
@@ -45,16 +45,86 @@
         </div>
     </div>
     {% endif %}
-    </div>
-    <style>
-        .comparisons { font-family: raleway;}
-        .compare-container { display: flex; justify-content: space-around; margin-top: 20px; gap: 20px; }
-        .biz-column { width: 45%; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px #eee; }
-        .green-bg { background-color: #d4edda; color: #155724; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
-        .stat-row { margin-bottom: 15px; padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
-        select { width: 40%; padding: 10px; font-size: 16px; }
-        .enters { padding: 10px 30px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        button:hover { background-color: #218838; }
-        .header-controls { text-align: center; margin-bottom: 40px; }
-    </style>
+</div>
+
+<style>
+.comparisons { 
+    font-family: raleway; 
+}
+
+/* Default selection area - grey background */
+.compare-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+    margin-top: 20px; 
+    flex-wrap: wrap;
+}
+
+.biz-column { 
+    width: 45%; 
+    border: 2px solid #2d6969; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.1); 
+    background-color: #d6d6d6; /* light grey for default compare box */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-column {
+    background-color: #ffffff; /* results become white */
+}
+
+.biz-column:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.green-bg { 
+    background-color: #d4edda; 
+    color: #155724; 
+    font-weight: bold; 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    display: inline-block; 
+}
+
+.stat-row { 
+    margin-bottom: 15px; 
+    padding: 8px; 
+    display: flex; 
+    justify-content: space-between; 
+    font-weight: 500;
+}
+
+select { 
+    width: 45%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 2px solid #2d6969;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #2d6969;
+}
+
+.enters { 
+    padding: 10px 30px; 
+    background-color: #2d6969; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    margin-top: 10px; 
+}
+
+.enters:hover { 
+    background-color: #1f4f4f; 
+}
+
+.header-controls { 
+    text-align: center; 
+    margin-bottom: 40px; 
+}
+</style>
 {% endblock %}
