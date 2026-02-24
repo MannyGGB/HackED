@@ -103,7 +103,8 @@ def logout():
 @app.route('/admin', methods=['GET', 'POST'])
 @admin_required
 def admin():
-    return render_template('admin.html')
+    businesses = db.queryDB("SELECT business_id, Name FROM Business")
+    return render_template('admin.html', businesses=businesses)
 
 @app.route('/admin_add_company', methods=['GET', 'POST'])
 @admin_required
@@ -118,6 +119,27 @@ def admin_add_company():
 
         if name and long and lat:
             db.updateDB('INSERT INTO Business (Name,is_physical,long,lat) VALUES (?,?,?,?)', (name,tick,long,lat))
+
+    return render_template('admin.html')
+
+@app.route('/admin_add_metrics', methods=['GET', 'POST'])
+@admin_required
+def admin_add_metrics():
+    if request.method == "POST":
+        business_id = request.form["biz"]
+        carbon = request.form["ci"]
+        materials = request.form["sm"]
+        chain = request.form["sc"]
+        waste = request.form["ws"]
+        water = request.form["wu"]
+
+        total = carbon + materials + chain + waste + water
+        ovr = total / 5
+
+        time = 1 #save current time
+
+        if business_id and carbon and materials and chain and waste and water and ovr and time:
+            db.updateDB('INSERT INTO Metrics (business_id,carbon_intensity,sustainable_materials,supply_chain,wate,water_use,ovr,date) VALUES (?,?,?,?,?,?,?,?)', (business_id,carbon,materials,chain,waste,water,ovr,time))
 
     return render_template('admin.html')
 
