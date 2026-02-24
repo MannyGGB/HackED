@@ -67,7 +67,7 @@
 
 /* Mapping routes.py keys to uploaded image files */
 .badge-overall { 
-    background-image: url('{{ url_for("static", filename="Sustainable_Badge.png") }}'); 
+    background-image: url('{{ url_for("static", filename="Overall_Badge.png") }}'); 
 }
 .badge-carbon { 
     background-image: url('{{ url_for("static", filename="Low_Carbon_Badge.png") }}'); 
@@ -80,10 +80,6 @@
 }
 .badge-water { 
     background-image: url('{{ url_for("static", filename="Water_impact_badge.png") }}'); 
-}
-.badge-materials { 
-    /* Defaulting to Sustainable badge if no specific material image exists */
-    background-image: url('{{ url_for("static", filename="Sustainable_Badge.png") }}'); 
 }
 
 /* Hover effects */
