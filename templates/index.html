@@ -22,6 +22,23 @@
     <p class="raleway" style="color: #2d6969;"><b>Fashion Footprint</b> brings clarity, credibility, and accountability to sustainable fashion.</p>
 </div>
 
+<div class="winners-container">
+    <h2>Top Performers</h2>
+    <div class="winners-grid">
+        {% for category, data in winners.items() %}
+        <div class="winner-card">
+            <div class="badge-icon badge-{{ category }}"></div>
+            
+            <h4 style="text-transform: capitalize; color: #7f8c8d;">
+                {{ category|replace('_', ' ') }}
+            </h4>
+            <p class="winner-name">{{ data[0] }}</p>
+            <p class="winner-score">Score: {{ data[1] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 <!-- Footer -->
 <a href="MailTo:info@fashionfootprint.com" 
    style="position: fixed; bottom: 10px; right: 20px; font-weight: bold; color: #2d6969; cursor: pointer; text-decoration: none;">
