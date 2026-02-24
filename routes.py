@@ -129,6 +129,22 @@ def admin_add_company():
 
     return render_template('admin.html')
 
+@app.route('/admin_edit_company', methods=['GET', 'POST'])
+@admin_required
+def admin_add_company():
+    if request.method == "POST":
+        name = request.form["name"]
+        physical = request.form.get("phys")
+        long = request.form["long"]
+        lat = request.form["lat"]
+
+        tick = 1 if physical else 0
+
+        if name and long and lat:
+            db.updateDB('INSERT INTO Business (Name,is_physical,long,lat) VALUES (?,?,?,?)', (name,tick,long,lat))
+
+    return render_template('admin.html')
+
 @app.route('/admin_add_metrics', methods=['GET', 'POST'])
 @admin_required
 def admin_add_metrics():
