@@ -47,32 +47,52 @@ def home():
 
     return render_template('index.html', count=count, winners=winners)
 
-@app.route('/leaderboard', methods=['GET'])
+@app.route("/leaderboard")
 def leaderboard():
-    # calculate average
+
+    # Recalculate averages safely
     db.updateDB("""
-        UPDATE Metrics 
-        SET ovr = ROUND((carbon_intensity + sustainable_materials + supply_chain + waste + water_use) / 5.0, 1)
+        UPDATE Metrics
+        SET ovr = ROUND(
+            (carbon_intensity + sustainable_materials + supply_chain + waste + water_use) / 5.0,
+            1
+        )
     """)
 
-    data = db.queryDB("""
-        SELECT Business.Name, Metrics.ovr
-        FROM Metrics
-        JOIN Business ON Metrics.business_id = Business.business_id
-        ORDER BY Metrics.ovr DESC, Metrics.date DESC
+    # Get all metrics ordered newest first per business
+    rows = db.queryDB("""
+        SELECT b.Name, m.ovr, m.date
+        FROM Metrics m
+        JOIN Business b ON m.business_id = b.business_id
+        ORDER BY b.business_id, m.date DESC
     """)
-    businesses = db.queryDB("SELECT Business.Name FROM Business")
 
-    found = {}
-    for count in range(len(businesses)): found[businesses[count][0]] = False
-
-    newData = []
-    for count in range(len(data)):
-        if found[data[count][0]] is False:
-            newData.append([data[count][0], data[count][1]])
-            found[data[count][0]] = True
+    companyData = {}
     
-    return render_template('leaderboardDisplay.html', leaderboardData=newData)
+    for name, score, date in rows:
+        if name not in companyData:
+            companyData[name] = {"latest": score, "previous": None}
+        elif companyData[name]["previous"] is None:
+            companyData[name]["previous"] = score
+
+    leaderboardData = []
+
+    for name, values in companyData.items():
+        latest = values["latest"]
+        previous = values["previous"]
+        trend = None
+
+        if previous is not None:
+            if latest > previous:
+                trend = "up"
+            elif latest < previous:
+                trend = "down"
+
+        leaderboardData.append([name, latest, trend])
+
+    leaderboardData.sort(key=lambda x: x[1], reverse=True)
+
+    return render_template("leaderboardDisplay.html", leaderboardData=leaderboardData)
 
 @app.route('/admin_login', methods=['GET','POST'])
 def login():
@@ -131,7 +151,7 @@ def admin_add_company():
 
 @app.route('/admin_edit_company', methods=['GET', 'POST'])
 @admin_required
-def admin_add_company():
+def admin_edit_company():
     if request.method == "POST":
         name = request.form["name"]
         physical = request.form.get("phys")

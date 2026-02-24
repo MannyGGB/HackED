@@ -20,7 +20,15 @@
                     <!-- Company name -->
                     <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; flex: 1; margin-left: 10px;">{{ item[0] }}</span>
                     <!-- Score -->
-                    <span style="color: #2d6969; font-weight: 500; font-size: 1.05rem;">{{ item[1] }}</span>
+                    <span style="color: #2d6969; font-weight: 500; font-size: 1.05rem;">
+                        {{ item[1] }}
+
+                        {% if item[2] == "up" %}
+                            <span style="color: green; font-weight: bold;">&#8593;</span>
+                        {% elif item[2] == "down" %}
+                            <span style="color: red; font-weight: bold;">&#8595;</span>
+                        {% endif %}
+                    </span>
                 </div>
                 {% endfor %}
             </div>
