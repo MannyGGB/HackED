@@ -1,4 +1,6 @@
 import googlemaps
+import os
+from dotenv import load_dotenv
 
 def get_coords(address, api_key):
     gmaps = googlemaps.Client(key=api_key)
@@ -15,9 +17,11 @@ def get_coords(address, api_key):
         return None
 
 # Usage
-API_KEY = 'INSERT_YOUR_API_KEY'
+load_dotenv()  # This loads the variables from .env into the system
+api_key = os.getenv("MY_API_KEY")
+
 address = "1600 Amphitheatre Parkway, Mountain View, CA"
-coords = get_coords(address, API_KEY)
+coords = get_coords(address, api_key)
 
 if coords:
     print(f"Address: {address}")

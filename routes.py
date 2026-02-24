@@ -1,8 +1,10 @@
 from __main__ import app
-from flask import Flask,render_template,url_for,session,request,redirect,flash
+from flask import Flask, render_template, url_for, session, request, redirect, flash, jsonify
 from db_connector import database
 import hashlib
 from functools import wraps
+import os
+from dotenv import load_dotenv
 
 def admin_required(f):
     @wraps(f)
@@ -55,3 +57,28 @@ def login():
 @admin_required
 def admin():
     return render_template('admin.html')
+
+@app.route('/find_stores', methods=['GET'])
+def map_page():
+    # Just return the file. No variables passed here.
+    return render_template("mapDisplay.html")
+
+@app.route('/api/stores', methods=['GET'])
+def get_stores_api():
+    load_dotenv()
+    
+    # 1. Get the API Key and Store Data
+    key = os.getenv("MY_API_KEY")
+    query = "SELECT Name, lat, long FROM Business"
+    stores_raw = db.queryDB(query)
+
+    stores_list = []
+    for row in stores_raw:
+        stores_list.append({
+            "name": str(row[0]),
+            "lat": float(row[2]),
+            "lng": float(row[1])
+        })
+
+    # 2. Return everything as a JSON object
+    return jsonify({"apiKey": key, "stores": stores_list})
