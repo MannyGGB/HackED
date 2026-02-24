@@ -39,7 +39,6 @@
   white-space: nowrap;
   display: flex;
   animation: marquee 20s linear infinite;
-  
 }
 
 .marquee-content {
@@ -61,4 +60,5 @@
 
 body{
   background-image: url(backing.jpg);
+  max-height: 100%;
 }
