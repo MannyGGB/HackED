@@ -30,30 +30,30 @@
 <h3>Add New Metrics</h3>
 <form action="/admin_add_metrics" method="POST">
     <select id = "biz" name="biz">
-        <option value="">Select Business 1</option>
+        <option value="">Select Business</option>
         {% for b in businesses %}
         <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
         {% endfor %}
     </select>
     <div class="input">
         <label class="form-label">Carbon Intensity Score</label>
-        <input class="form-control" step="0.1"placeholder="Longitude" type="number" id="ci" name="ci" style="max-width: 30%; justify-content: center;" required>
+        <input class="form-control" max="10" min="0.1" step="0.1"placeholder="Score" type="number" id="ci" name="ci" style="max-width: 30%; justify-content: center;" required>
     </div>
     <div class="input">
         <label class="form-label">Sustainable Materials Score</label>
-        <input class="form-control" step="0.1" placeholder="Latitude" type="number" id="sm" name="sm" style="max-width: 30%; justify-content: center;" required>
+        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="sm" name="sm" style="max-width: 30%; justify-content: center;" required>
     </div>
     <div class="input">
         <label class="form-label">Supply Chain Score</label>
-        <input class="form-control" step="0.1" placeholder="Latitude" type="number" id="sc" name="sc" style="max-width: 30%; justify-content: center;" required>
+        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="sc" name="sc" style="max-width: 30%; justify-content: center;" required>
     </div>
     <div class="input">
         <label class="form-label">Waste Score</label>
-        <input class="form-control" step="0.1" placeholder="Latitude" type="number" id="ws" name="ws" style="max-width: 30%; justify-content: center;" required>
+        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="ws" name="ws" style="max-width: 30%; justify-content: center;" required>
     </div>
     <div class="input">
         <label class="form-label">Water Usage Score</label>
-        <input class="form-control" step="0.1" placeholder="Latitude" type="number" id="wu" name="wu" style="max-width: 30%; justify-content: center;" required>
+        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="wu" name="wu" style="max-width: 30%; justify-content: center;" required>
     </div>
     <div>
         <input class="btn btn-primary" style="justify-content: center;" type="submit" name="submit">
