@@ -22,27 +22,37 @@
     <p class="raleway" style="color: #2d6969;"><b>Fashion Footprint</b> brings clarity, credibility, and accountability to sustainable fashion.</p>
 </div>
 
-<div class="winners-container">
-    <h2>Top Performers</h2>
-    <div class="winners-grid">
+<div class="winners-container mt-5 text-center">
+    <h2 style="color: #2d6969; letter-spacing: 1px; font-weight: 600; margin-bottom: 30px;">Top Performers</h2>
+    <div class="winners-grid d-flex justify-content-center flex-wrap gap-4">
         {% for category, data in winners.items() %}
-        <div class="winner-card">
-            <div class="badge-icon badge-{{ category }}"></div>
+        <div class="winner-card shadow-sm" style="background-color: #f0f0f0; border: 2px solid #2d6969; border-radius: 10px; width: 220px; padding: 20px; transition: all 0.2s ease;">
+            <!-- Badge Icon -->
+            <div class="badge-icon badge-{{ category }}" style="margin-bottom: 15px;"></div>
             
-            <h4 style="text-transform: capitalize; color: #7f8c8d;">
+            <!-- Category Name -->
+            <h4 style="text-transform: capitalize; color: #2d6969; margin-bottom: 10px;">
                 {{ category|replace('_', ' ') }}
             </h4>
-            <p class="winner-name">{{ data[0] }}</p>
-            <p class="winner-score">Score: {{ data[1] }}</p>
+            
+            <!-- Winner Name -->
+            <p class="winner-name" style="color: #2d6969; font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">{{ data[0] }}</p>
+            
+            <!-- Winner Score -->
+            <p class="winner-score" style="color: #2d6969; font-weight: 500; font-size: 1rem;">Score: {{ data[1] }}</p>
         </div>
         {% endfor %}
     </div>
 </div>
 
-<!-- Footer -->
-<a href="MailTo:info@fashionfootprint.com" 
-   style="position: fixed; bottom: 10px; right: 20px; font-weight: bold; color: #2d6969; cursor: pointer; text-decoration: none;">
-   Contact Us
-</a>
+<style>
+.winner-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.winners-grid {
+    gap: 20px;
+}
+</style>
 
 {% endblock %}
