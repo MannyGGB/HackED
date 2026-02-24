@@ -1,24 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
-    <form action="/admin_login" method="POST" class="text-center">
-        <h1 class="mb-4">Admin Login</h1>
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh; background-color: #f5f5f5;">
+    <form action="/admin_login" method="POST" class="text-center" style="width: 100%; max-width: 400px;">
+        
+        <h1 class="mb-4" style="color: #2d6969; font-weight: 700;">Admin Login</h1>
 
-        <div class="mb-3">
-            <label class="form-label">User Name</label>
-            <input class="form-control mx-auto" type="text" id="user" name="user" style="max-width: 300px;" required>
+        <div class="mb-3 text-start">
+            <label class="form-label" style="color: #2d6969; font-weight: 500;">User Name</label>
+            <input class="form-control" type="text" id="user" name="user" placeholder="Username" required
+                   style="border: 2px solid #2d6969; border-radius: 5px; background-color: #ffffff; color: #2d6969; transition: all 0.2s;">
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control mx-auto" placeholder="Password" id="pass" name="pass" style="max-width: 300px;" required>
+        <div class="mb-3 text-start">
+            <label class="form-label" style="color: #2d6969; font-weight: 500;">Password</label>
+            <input type="password" class="form-control" placeholder="Password" id="pass" name="pass" required
+                   style="border: 2px solid #2d6969; border-radius: 5px; background-color: #ffffff; color: #2d6969; transition: all 0.2s;">
         </div>
 
         <div>
-            <input class="btn btn-primary" type="submit" name="submit">
+            <input class="btn" type="submit" name="submit" value="Submit"
+                   style="background-color: #2d6969; color: #ffffff; padding: 10px 30px; font-weight: 600; border-radius: 5px; border: none; transition: all 0.2s;">
         </div>
     </form>
 </div>
+
+<style>
+/* Input hover effects */
+input.form-control:hover {
+    border-color: #1f4f4f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Input focus effect */
+input.form-control:focus {
+    border-color: #1f4f4f;
+    box-shadow: 0 0 5px rgba(47,105,105,0.4);
+    outline: none;
+}
+
+/* Button hover effect */
+input.btn:hover {
+    background-color: #1f4f4f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+</style>
 
 {% endblock %}
