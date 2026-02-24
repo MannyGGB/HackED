@@ -58,3 +58,7 @@
     transform: translateX(-50%);
   }
 }
+
+body{
+  background-image: url(backing.jpg);
+}
