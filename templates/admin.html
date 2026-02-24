@@ -25,7 +25,33 @@
 </form>
 
 <h3>Edit Company</h3>
-
+<form action="/admin_edit_company" method="POST">
+    <select id = "biz" name="biz">
+        <option value="">Select Business</option>
+        {% for b in businesses %}
+        <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
+        {% endfor %}
+    </select>
+    <div class="input">
+        <label class="form-label">Business Name</label>
+        <input class="form-control" type="text" id="name" name="name" style="max-width: 30%; justify-content: center;" required>
+    </div>
+     <div class="input">
+        <label class="form-label">Is Physical?</label>
+        <input type="checkbox" id="phys" name="phys">
+    </div>
+     <div class="input">
+        <label class="form-label">Longitude Coord</label>
+        <input class="form-control" step="0.0000000000001"placeholder="Longitude" type="number" id="long" name="long" style="max-width: 30%; justify-content: center;" required>
+    </div>
+     <div class="input">
+        <label class="form-label">Latitude Coord</label>
+        <input class="form-control" step="0.0000000000001" placeholder="Latitude" type="number" id="lat" name="lat" style="max-width: 30%; justify-content: center;" required>
+    </div>
+    <div>
+        <input class="btn btn-primary" style="justify-content: center;" type="submit" name="submit">
+    </div>
+</form>
 
 <h3>Add New Metrics</h3>
 <form action="/admin_add_metrics" method="POST">
