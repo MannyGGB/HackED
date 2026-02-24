@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Comparison</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .compare-container { display: flex; justify-content: space-around; margin-top: 20px; gap: 20px; }
+        .biz-column { width: 45%; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px #eee; }
+        .green-bg { background-color: #d4edda; color: #155724; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+        .stat-row { margin-bottom: 15px; padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+        select { width: 40%; padding: 10px; font-size: 16px; }
+        button { padding: 10px 30px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:hover { background-color: #218838; }
+        .header-controls { text-align: center; margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Business Comparison Tool</h1>
+    
+    <form method="POST" class="header-controls">
+        <div class="compare-container" style="margin-bottom: 20px;">
+            <select name="biz1">
+                <option value="">Select Business 1</option>
+                {% for b in businesses %}
+                <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <select name="biz2">
+                <option value="">Select Business 2</option>
+                {% for b in businesses %}
+                <option value="{{ b[0] }}" {{ 'selected' if b[0] == id2 else '' }}>{{ b[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">Compare Statistics</button>
+    </form>
+
+    {% if b1 and b2 %}
+    <div class="compare-container">
+        <div class="biz-column">
+            <h2 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px;">Results</h2>
+            <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b1[2] >= b2[2] else '' }}">{{ b1[2] }}</span></div>
+            <div class="stat-row">Sustainable Materials: <span class="{{ 'green-bg' if b1[3] >= b2[3] else '' }}">{{ b1[3] }}</span></div>
+            <div class="stat-row">Supply Chain: <span class="{{ 'green-bg' if b1[4] >= b2[4] else '' }}">{{ b1[4] }}</span></div>
+            <div class="stat-row">Waste Management: <span class="{{ 'green-bg' if b1[5] >= b2[5] else '' }}">{{ b1[5] }}</span></div>
+            <div class="stat-row">Water Use: <span class="{{ 'green-bg' if b1[6] >= b2[6] else '' }}">{{ b1[6] }}</span></div>
+            <div class="stat-row"><strong>Overall Score: <span class="{{ 'green-bg' if b1[7] >= b2[7] else '' }}">{{ b1[7] }}</span></strong></div>
+        </div>
+
+        <div class="biz-column">
+            <h2 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px;">Results</h2>
+            <div class="stat-row">Carbon Intensity: <span class="{{ 'green-bg' if b2[2] >= b1[2] else '' }}">{{ b2[2] }}</span></div>
+            <div class="stat-row">Sustainable Materials: <span class="{{ 'green-bg' if b2[3] >= b1[3] else '' }}">{{ b2[3] }}</span></div>
+            <div class="stat-row">Supply Chain: <span class="{{ 'green-bg' if b2[4] >= b1[4] else '' }}">{{ b2[4] }}</span></div>
+            <div class="stat-row">Waste Management: <span class="{{ 'green-bg' if b2[5] >= b1[5] else '' }}">{{ b2[5] }}</span></div>
+            <div class="stat-row">Water Use: <span class="{{ 'green-bg' if b2[6] >= b1[6] else '' }}">{{ b2[6] }}</span></div>
+            <div class="stat-row"><strong>Overall Score: <span class="{{ 'green-bg' if b2[7] >= b1[7] else '' }}">{{ b2[7] }}</span></strong></div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

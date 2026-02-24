@@ -86,3 +86,33 @@ def get_stores_api():
 
     # 2. Return everything as a JSON object
     return jsonify({"apiKey": key, "stores": stores_list})
+
+@app.route('/compare', methods=['GET', 'POST'])
+def compare():
+    # Fetch all businesses for the dropdown menus
+    businesses = db.queryDB("SELECT business_id, Name FROM Business")
+    
+    biz1_data = None
+    biz2_data = None
+    id1 = None
+    id2 = None
+
+    if request.method == 'POST':
+        id1 = request.form.get('biz1')
+        id2 = request.form.get('biz2')
+
+        if id1 and id2:
+            # Fetch latest metrics for the selected businesses
+            query = "SELECT * FROM Metrics WHERE business_id = ? ORDER BY date DESC LIMIT 1"
+            res1 = db.queryDB(query, [id1])
+            res2 = db.queryDB(query, [id2])
+            
+            if res1 and res2:
+                biz1_data = res1[0]
+                biz2_data = res2[0]
+            
+            # Convert IDs to integers so they match the database values in the template check
+            id1 = int(id1)
+            id2 = int(id2)
+
+    return render_template('compare.html', businesses=businesses, b1=biz1_data, b2=biz2_data, id1=id1, id2=id2)
