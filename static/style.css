@@ -58,7 +58,8 @@
   }
 }
 
-body{
+main{
   background-image: url(backing.jpg);
-  max-height: 100%;
+  background-size: cover;
+  height: 100vh;
 }

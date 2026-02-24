@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<header>
 <nav class="navbar navbar-expand-lg custom-navbar navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
@@ -43,7 +44,10 @@
       </div>
     </div>
   </nav>
-  {% block content %}
-  {% endblock %}
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
 </body>
 </html>
