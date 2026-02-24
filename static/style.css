@@ -25,3 +25,8 @@
     background-color: #ffffff;
     color: #2d6969;
   }
+
+.map { 
+  height: 100%; 
+  width: 100%;
+ }

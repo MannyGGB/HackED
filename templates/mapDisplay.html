@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Store Finder</title>
-    <style>
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; width: 100%; }
-    </style>
-  </head>
-  <body>
+{% extends 'base.html' %}
+{% block content %}
     <div id="map"></div>
 
     <script>
@@ -89,5 +81,9 @@
 
       startApp();
     </script>
-  </body>
-</html>
+
+    <style>
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 84%; width: 100%; }
+    </style>
+{% endblock %}
