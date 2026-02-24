@@ -55,15 +55,41 @@
 
 <!-- Styles -->
 <style>
-/* Hover effect for winner cards */
-.winner-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+/* Base style for all badge icons */
+.badge-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* Gap between winner cards */
-.winners-grid {
-    gap: 15px;
+/* Mapping routes.py keys to uploaded image files */
+.badge-overall { 
+    background-image: url('{{ url_for("static", filename="Sustainable_Badge.png") }}'); 
+}
+.badge-carbon { 
+    background-image: url('{{ url_for("static", filename="Low_Carbon_Badge.png") }}'); 
+}
+.badge-supply_chain { 
+    background-image: url('{{ url_for("static", filename="Traceability_badge.png") }}'); 
+}
+.badge-waste { 
+    background-image: url('{{ url_for("static", filename="Second_life_badge.png") }}'); 
+}
+.badge-water { 
+    background-image: url('{{ url_for("static", filename="Water_impact_badge.png") }}'); 
+}
+.badge-materials { 
+    /* Defaulting to Sustainable badge if no specific material image exists */
+    background-image: url('{{ url_for("static", filename="Sustainable_Badge.png") }}'); 
+}
+
+/* Hover effects */
+.winner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 </style>
 
