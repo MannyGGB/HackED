@@ -1,89 +1,157 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Admin Dashboard</h1>
-<h3>Add Company</h3>
-<form action="/admin_add_company" method="POST">
-    <div class="input">
-        <label class="form-label">Business Name</label>
-        <input class="form-control" type="text" id="name" name="name" style="max-width: 30%; justify-content: center;" required>
-    </div>
-     <div class="input">
-        <label class="form-label">Is Physical?</label>
-        <input type="checkbox" id="phys" name="phys">
-    </div>
-     <div class="input">
-        <label class="form-label">Longitude Coord</label>
-        <input class="form-control" step="0.0000000000001"placeholder="Longitude" type="number" id="long" name="long" style="max-width: 30%; justify-content: center;" required>
-    </div>
-     <div class="input">
-        <label class="form-label">Latitude Coord</label>
-        <input class="form-control" step="0.0000000000001" placeholder="Latitude" type="number" id="lat" name="lat" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div>
-        <input class="btn btn-primary" style="justify-content: center;" type="submit" name="submit">
-    </div>
-</form>
+<div class="admin-dashboard" style="font-family: raleway; max-width: 900px; margin: 40px auto;">
 
-<h3>Edit Company</h3>
-<form action="/admin_edit_company" method="POST">
-    <select id = "biz" name="biz">
-        <option value="">Select Business</option>
-        {% for b in businesses %}
-        <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
-        {% endfor %}
-    </select>
-    <div class="input">
-        <label class="form-label">Business Name</label>
-        <input class="form-control" type="text" id="name" name="name" style="max-width: 30%; justify-content: center;" required>
-    </div>
-     <div class="input">
-        <label class="form-label">Is Physical?</label>
-        <input type="checkbox" id="phys" name="phys">
-    </div>
-     <div class="input">
-        <label class="form-label">Longitude Coord</label>
-        <input class="form-control" step="0.0000000000001"placeholder="Longitude" type="number" id="long" name="long" style="max-width: 30%; justify-content: center;" required>
-    </div>
-     <div class="input">
-        <label class="form-label">Latitude Coord</label>
-        <input class="form-control" step="0.0000000000001" placeholder="Latitude" type="number" id="lat" name="lat" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div>
-        <input class="btn btn-primary" style="justify-content: center;" type="submit" name="submit">
-    </div>
-</form>
+    <h1 style="text-align: center; color: #2d6969; font-weight: 700;">Admin Dashboard</h1>
 
-<h3>Add New Metrics</h3>
-<form action="/admin_add_metrics" method="POST">
-    <select id = "biz" name="biz">
-        <option value="">Select Business</option>
-        {% for b in businesses %}
-        <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
-        {% endfor %}
-    </select>
-    <div class="input">
-        <label class="form-label">Carbon Intensity Score</label>
-        <input class="form-control" max="10" min="0.1" step="0.1"placeholder="Score" type="number" id="ci" name="ci" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div class="input">
-        <label class="form-label">Sustainable Materials Score</label>
-        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="sm" name="sm" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div class="input">
-        <label class="form-label">Supply Chain Score</label>
-        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="sc" name="sc" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div class="input">
-        <label class="form-label">Waste Score</label>
-        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="ws" name="ws" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div class="input">
-        <label class="form-label">Water Usage Score</label>
-        <input class="form-control" max="10" min="0.1" step="0.1" placeholder="Score" type="number" id="wu" name="wu" style="max-width: 30%; justify-content: center;" required>
-    </div>
-    <div>
-        <input class="btn btn-primary" style="justify-content: center;" type="submit" name="submit">
-    </div>
-</form>
+    <!-- Add Company -->
+    <div class="card shadow-lg mb-5" style="padding: 30px; border: 3px solid #2d6969; background-color: #f0f0f0; border-radius: 12px;">
+        <h3 style="color: #2d6969; margin-bottom: 20px;">Add Company</h3>
+        <form action="/admin_add_company" method="POST" class="d-flex flex-column gap-3">
 
+            <div class="input">
+                <label class="form-label">Business Name</label>
+                <input class="form-control styled-input" type="text" id="name" name="name" required>
+            </div>
+
+            <div class="input" style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="phys" name="phys">
+                <label class="form-label" for="phys">Is Physical?</label>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Longitude Coord</label>
+                <input class="form-control styled-input" step="0.0000000000001" placeholder="Longitude" type="number" id="long" name="long" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Latitude Coord</label>
+                <input class="form-control styled-input" step="0.0000000000001" placeholder="Latitude" type="number" id="lat" name="lat" required>
+            </div>
+
+            <div>
+                <input class="btn btn-primary styled-btn" type="submit" name="submit" value="Add Company">
+            </div>
+        </form>
+    </div>
+
+    <!-- Edit Company -->
+    <div class="card shadow-lg mb-5" style="padding: 30px; border: 3px solid #2d6969; background-color: #f0f0f0; border-radius: 12px;">
+        <h3 style="color: #2d6969; margin-bottom: 20px;">Edit Company</h3>
+        <form action="/admin_edit_company" method="POST" class="d-flex flex-column gap-3">
+
+            <select id="biz" name="biz" class="styled-select" required>
+                <option value="">Select Business</option>
+                {% for b in businesses %}
+                <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="input">
+                <label class="form-label">Business Name</label>
+                <input class="form-control styled-input" type="text" id="name" name="name" required>
+            </div>
+
+            <div class="input" style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="phys" name="phys">
+                <label class="form-label" for="phys">Is Physical?</label>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Longitude Coord</label>
+                <input class="form-control styled-input" step="0.0000000000001" placeholder="Longitude" type="number" id="long" name="long" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Latitude Coord</label>
+                <input class="form-control styled-input" step="0.0000000000001" placeholder="Latitude" type="number" id="lat" name="lat" required>
+            </div>
+
+            <div>
+                <input class="btn btn-primary styled-btn" type="submit" name="submit" value="Edit Company">
+            </div>
+        </form>
+    </div>
+
+    <!-- Add New Metrics -->
+    <div class="card shadow-lg mb-5" style="padding: 30px; border: 3px solid #2d6969; background-color: #f0f0f0; border-radius: 12px;">
+        <h3 style="color: #2d6969; margin-bottom: 20px;">Add New Metrics</h3>
+        <form action="/admin_add_metrics" method="POST" class="d-flex flex-column gap-3">
+
+            <select id="biz" name="biz" class="styled-select" required>
+                <option value="">Select Business</option>
+                {% for b in businesses %}
+                <option value="{{ b[0] }}" {{ 'selected' if b[0] == id1 else '' }}>{{ b[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="input">
+                <label class="form-label">Carbon Intensity Score</label>
+                <input class="form-control styled-input" max="10" min="0.1" step="0.1" type="number" id="ci" name="ci" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Sustainable Materials Score</label>
+                <input class="form-control styled-input" max="10" min="0.1" step="0.1" type="number" id="sm" name="sm" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Supply Chain Score</label>
+                <input class="form-control styled-input" max="10" min="0.1" step="0.1" type="number" id="sc" name="sc" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Waste Score</label>
+                <input class="form-control styled-input" max="10" min="0.1" step="0.1" type="number" id="ws" name="ws" required>
+            </div>
+
+            <div class="input">
+                <label class="form-label">Water Usage Score</label>
+                <input class="form-control styled-input" max="10" min="0.1" step="0.1" type="number" id="wu" name="wu" required>
+            </div>
+
+            <div>
+                <input class="btn btn-primary styled-btn" type="submit" name="submit" value="Add Metrics">
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.styled-input {
+    max-width: 60%;
+    height: 45px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #2d6969;
+    border-radius: 6px;
+}
+
+.styled-select {
+    max-width: 60%;
+    height: 45px;
+    font-size: 16px;
+    border: 2px solid #2d6969;
+    border-radius: 6px;
+    padding-left: 8px;
+    background-color: #ffffff;
+    color: #2d6969;
+}
+
+.styled-btn {
+    max-width: 200px;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #2d6969;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.styled-btn:hover {
+    background-color: #1f4f4f;
+}
+</style>
 {% endblock %}
