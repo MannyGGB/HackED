@@ -31,14 +31,18 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('compare') }}">Compare Stores</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
-          </li>
           {% if 'admin' in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin') }}">Dashboard</a>
+          </li>
+    
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
           </li>
           {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
+          </li>
           {% endif %}
         </ul>
       

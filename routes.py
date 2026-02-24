@@ -247,3 +247,10 @@ def compare():
             id2 = int(id2)
 
     return render_template('compare.html', businesses=businesses, b1=biz1_data, b2=biz2_data, id1=id1, id2=id2)
+
+@app.route('/profile/<int:business_id>', methods=['GET'])
+def profile(business_id):
+    data1 = db.queryDB("SELECT * From Business WHERE business_id = ?", (business_id))
+    data2 = db.queryDB("SELECT * From Metrics WHERE business_id = ?", (business_id))
+
+    return render_template('profile.html', data1=data1, data2=data2)
