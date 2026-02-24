@@ -59,7 +59,7 @@ def admin():
     return render_template('admin.html')
 
 @app.route('/find_stores', methods=['GET'])
-def map_page():
+def find_stores():
     # Just return the file. No variables passed here.
     return render_template("mapDisplay.html")
 
