@@ -31,7 +31,7 @@ def home():
             SELECT b.Name, m.{column} 
             FROM Metrics m 
             JOIN Business b ON m.business_id = b.business_id 
-            ORDER BY m.{column} DESC LIMIT 1
+            ORDER BY m.{column} DESC, m.date DESC
         """
         result = db.queryDB(query)
         return result[0] if result else ("N/A", 0)
