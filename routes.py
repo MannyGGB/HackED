@@ -265,11 +265,13 @@ def profile(business_id):
         phys1 == "Has a physical location"
     elif phys == 0:
         phys1 = "Does not have a physical location"
+    else:
+        phys1 = "Error!"
 
 
     addy = get_address(lat[0][0],long[0][0])
 
-    return render_template('profile.html', addy=addy,data1=data1,data2=data2)
+    return render_template('profile.html', phys1=phys1, addy=addy,data1=data1,data2=data2)
 
 def get_address(lat, lng):
     load_dotenv()
