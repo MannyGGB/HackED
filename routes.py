@@ -253,37 +253,20 @@ def compare():
 
 @app.route('/profile/<int:business_id>', methods=['GET','POST'])
 def profile(business_id):
-    long = db.queryDB("SELECT long FROM Business WHERE business_id = ?", (business_id,))
-    lat = db.queryDB("SELECT lat FROM Business WHERE business_id = ?", (business_id,))
+    coords = db.queryDB("SELECT long,lat FROM Business WHERE business_id = ?", (business_id,))
     data1 = db.queryDB("SELECT Name FROM Business WHERE business_id = ?", (business_id,))
     phys = db.queryDB("SELECT is_physical FROM Business WHERE business_id = ?", (business_id,))
     data2 = db.queryDB("SELECT * FROM Metrics WHERE business_id = ?", (business_id,))
 
     phys1 = "Blank"
+    phys = phys[0][0]
+    
 
     if phys == 1:
-        phys1 == "Has a physical location"
+        phys1 = "Has a physical location"
     elif phys == 0:
         phys1 = "Does not have a physical location"
     else:
         phys1 = "Error!"
 
-
-    addy = get_address(lat[0][0],long[0][0])
-
-    return render_template('profile.html', phys1=phys1, addy=addy,data1=data1,data2=data2)
-
-def get_address(lat, lng):
-    load_dotenv()
-    api_key = os.getenv("MY_API_KEY")
-
-    gmaps = googlemaps.Client(key=api_key)
-    
-    # Reverse Geocoding
-    reverse_geocode_result = gmaps.reverse_geocode((lat, lng))
-    
-    if reverse_geocode_result:
-        # Returns the first formatted address match
-        return reverse_geocode_result[0]['formatted_address']
-    else:
-        return "No address found."
+    return render_template('profile.html', phys1=phys1, coords=coords,data1=data1,data2=data2)
