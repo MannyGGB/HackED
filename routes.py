@@ -4,6 +4,7 @@ from db_connector import database
 import hashlib
 from functools import wraps
 import os
+import googlemaps
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -250,7 +251,31 @@ def compare():
 
 @app.route('/profile/<int:business_id>', methods=['GET','POST'])
 def profile(business_id):
-    data1 = db.queryDB("SELECT * From Business WHERE business_id = ?", (business_id))
-    data2 = db.queryDB("SELECT * From Metrics WHERE business_id = ?", (business_id))
+    long = db.queryDB("SELECT long FROM Business WHERE business_id = ?", (business_id,))
+    lat = db.queryDB("SELECT lat FROM Business WHERE business_id = ?", (business_id,))
+    data1 = db.queryDB("SELECT * FROM Business WHERE business_id = ?", (business_id,))
+    data2 = db.queryDB("SELECT * FROM Metrics WHERE business_id = ?", (business_id,))
 
-    return render_template('profile.html', data1=data1, data2=data2)
+    long1 = float(long[0][0])
+    lat1 = float(lat[0][0])
+
+    addy = get_address(lat1,long1)
+
+    return render_template('profile.html', addy=addy,data1=data1,data2=data2)
+
+def get_address(lat, lng):
+    load_dotenv()  # This loads the variables from .env into the system
+    api_key = os.getenv("MY_API_KEY")
+
+    gmaps = googlemaps.Client(key=api_key)
+        
+    # Reverse Geocoding
+    reverse_geocode_result = gmaps.reverse_geocode((lat, lng))
+    
+    if reverse_geocode_result:
+        # Returns the first formatted address match
+        return reverse_geocode_result[0]['formatted_address']
+    else:
+        return "No address found."
+    
+
