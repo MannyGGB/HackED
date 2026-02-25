@@ -31,7 +31,7 @@ def home():
             SELECT b.Name, m.{column} 
             FROM Metrics m 
             JOIN Business b ON m.business_id = b.business_id 
-            ORDER BY m.{column} DESC LIMIT 1
+            ORDER BY m.{column} DESC, m.date DESC
         """
         result = db.queryDB(query)
         return result[0] if result else ("N/A", 0)
@@ -256,12 +256,11 @@ def profile(business_id):
     coords = db.queryDB("SELECT long,lat FROM Business WHERE business_id = ?", (business_id,))
     data1 = db.queryDB("SELECT Name FROM Business WHERE business_id = ?", (business_id,))
     phys = db.queryDB("SELECT is_physical FROM Business WHERE business_id = ?", (business_id,))
-    data2 = db.queryDB("SELECT * FROM Metrics WHERE business_id = ?", (business_id,))
+    data2 = db.queryDB("SELECT * FROM Metrics WHERE business_id = ? ORDER BY date DESC", (business_id,))
 
     phys1 = "Blank"
     phys = phys[0][0]
     
-
     if phys == 1:
         phys1 = "Has a physical location"
     elif phys == 0:
