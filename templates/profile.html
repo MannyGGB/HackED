@@ -2,15 +2,35 @@
 
 {% block content %}
 
-<p>{{ data1[0][0] }}</p>
-<p>{{ phys1 }}</p>
-<p>{{ coords[0][0] }}</p>
-<p>{{ coords[0][1] }}</p>
-<p>{{ data2[0][2] }}</p>
-<p>{{ data2[0][3] }}</p>
-<p>{{ data2[0][4] }}</p>
-<p>{{ data2[0][5] }}</p>
-<p>{{ data2[0][6] }}</p>
-<p>{{ data2[0][7] }}</p>
+<div class="container mt-5">
+    <div class="card mx-auto shadow-lg" style="max-width: 800px; border: 3px solid #2d6969; background-color: #f0f0f0; border-radius: 12px;">
+        
+        <div class="card-body">
+
+            <h2 class="text-center mb-4" style="color: #2d6969; font-weight: 700;">
+                {{ data1[0][0] }}
+            </h2>
+
+            <p><strong>Physical:</strong> {{ phys1 }}</p>
+            <p><strong>Longitude:</strong> {{ coords[0][0] }}</p>
+            <p><strong>Latitude:</strong> {{ coords[0][1] }}</p>
+
+            <hr>
+
+            <p><strong>Carbon Intensity:</strong> {{ data2[0][2] }}</p>
+            <p><strong>Sustainable Materials:</strong> {{ data2[0][3] }}</p>
+            <p><strong>Supply Chain:</strong> {{ data2[0][4] }}</p>
+            <p><strong>Waste:</strong> {{ data2[0][5] }}</p>
+            <p><strong>Water Use:</strong> {{ data2[0][6] }}</p>
+
+            <hr>
+
+            <p style="font-size: 1.2rem; font-weight: 700; color: #2d6969;">
+                Overall Score: {{ data2[0][7] }}
+            </p>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}
