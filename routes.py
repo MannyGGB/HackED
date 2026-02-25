@@ -256,26 +256,32 @@ def profile(business_id):
     data1 = db.queryDB("SELECT * FROM Business WHERE business_id = ?", (business_id,))
     data2 = db.queryDB("SELECT * FROM Metrics WHERE business_id = ?", (business_id,))
 
-    long1 = float(long[0][0])
-    lat1 = float(lat[0][0])
-
-    addy = get_address(lat1,long1)
+    addy = get_address(lat[0][0],long[0][0])
 
     return render_template('profile.html', addy=addy,data1=data1,data2=data2)
 
 def get_address(lat, lng):
-    load_dotenv()  # This loads the variables from .env into the system
+    load_dotenv()
     api_key = os.getenv("MY_API_KEY")
 
     gmaps = googlemaps.Client(key=api_key)
-        
-    # Reverse Geocoding
-    reverse_geocode_result = gmaps.reverse_geocode((lat, lng))
-    
-    if reverse_geocode_result:
-        # Returns the first formatted address match
-        return reverse_geocode_result[0]['formatted_address']
-    else:
+
+    results = gmaps.reverse_geocode((lat, lng))
+
+    if not results:
         return "No address found."
+
+    # Look for a real street address first
+    for result in results:
+        if "street_address" in result["types"]:
+            return result["formatted_address"]
+
+    # Fallback to route-level address
+    for result in results:
+        if "route" in result["types"]:
+            return result["formatted_address"]
+
+    # Last fallback
+    return results[0]["formatted_address"]
     
 
