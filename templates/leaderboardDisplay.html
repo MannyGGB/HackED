@@ -18,7 +18,9 @@
                     <!-- Ranking number with # -->
                     <span class="rank-number" style="color: #2d6969; font-weight: 600; font-size: 1.1rem; width: 30px; text-align: center;">#{{ loop.index }}</span>
                     <!-- Company name -->
-                    <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem; flex: 1; margin-left: 10px;">{{ item[0] }}</span>
+                     <a href="{{ url_for('profile', business_id=item[3]) }}" style="text-decoration: none; flex: 1; margin-left: 10px;">
+                        <span style="color: #2d6969; font-weight: 600; font-size: 1.1rem;">{{ item[0] }}</span>
+                    </a>
                     <!-- Score -->
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="color: #2d6969; font-weight: 500; font-size: 1.05rem;">

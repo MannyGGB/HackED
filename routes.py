@@ -50,7 +50,6 @@ def home():
 
 @app.route("/leaderboard")
 def leaderboard():
-
     # Recalculate averages safely
     db.updateDB("""
         UPDATE Metrics
@@ -60,9 +59,9 @@ def leaderboard():
         )
     """)
 
-    # Get all metrics ordered newest first per business
+    # Get all metrics ordered newest first per business, including business_id
     rows = db.queryDB("""
-        SELECT b.Name, m.ovr, m.date
+        SELECT b.Name, m.ovr, m.date, b.business_id
         FROM Metrics m
         JOIN Business b ON m.business_id = b.business_id
         ORDER BY b.business_id, m.date DESC
@@ -70,9 +69,10 @@ def leaderboard():
 
     companyData = {}
     
-    for name, score, date in rows:
+    for name, score, date, biz_id in rows:
         if name not in companyData:
-            companyData[name] = {"latest": score, "previous": None}
+            # Store the business_id so we can link to the profile later
+            companyData[name] = {"latest": score, "previous": None, "id": biz_id}
         elif companyData[name]["previous"] is None:
             companyData[name]["previous"] = score
 
@@ -81,6 +81,7 @@ def leaderboard():
     for name, values in companyData.items():
         latest = values["latest"]
         previous = values["previous"]
+        biz_id = values["id"]
         trend = None
 
         if previous is not None:
@@ -89,7 +90,8 @@ def leaderboard():
             elif latest < previous:
                 trend = "down"
 
-        leaderboardData.append([name, latest, trend])
+        # Append data including the biz_id at index 3
+        leaderboardData.append([name, latest, trend, biz_id])
 
     leaderboardData.sort(key=lambda x: x[1], reverse=True)
 
